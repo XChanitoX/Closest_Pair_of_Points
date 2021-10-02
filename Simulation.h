@@ -7,6 +7,12 @@ class Simulation{
 private:
     std::vector<Point*> points;
 
+    sf::Vertex line[2] =
+            {
+                    sf::Vertex(sf::Vector2f(600, 0)),
+                    sf::Vertex(sf::Vector2f(600, 800))
+            };
+
 public:
     Simulation(std::vector<Point*> points_):points(points_){};
 
@@ -14,12 +20,14 @@ public:
         window->clear();
         for (auto & point : points)
             point->draw(window);
+        window->draw(line,2,sf::Lines);
         window->display();
     }
 
     void simulate(sf::RenderWindow* window){
         while(true){
             draw(window);
+
 
             sf::Event _e;
             while (window->pollEvent(_e))
