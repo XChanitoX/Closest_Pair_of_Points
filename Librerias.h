@@ -2,14 +2,13 @@
 #define CLOSEST_PAIR_OF_POINTS_LIBRERIAS_H
 
 #include <iostream>
-#include <vector>
-#include <queue> //Priority_queue
+#include <cfloat>
 #include <cstdlib>
 #include <cmath>
-#include <unistd.h> //Libreria para el cronometro
+#include <vector>
 #include <ctime>
-#include <cstdio>
-#include <limits>
+#include <chrono>
+#include <thread>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
@@ -19,15 +18,13 @@
 #include "Point.h"
 #include "Simulation.h"
 
-using namespace sf;
 using namespace std;
+using namespace sf;
 
-int numeroPuntos(){
-    int numberOfPoints;
-    cout << "========== Closest Pair of Points Simulator ==========\n";
-    cout << "Choose the number of points:\n";
-    cin >> numberOfPoints;
-    return numberOfPoints;
-}
+sf::Vertex line[2] =
+        {
+                sf::Vertex(sf::Vector2f(600, 0)),
+                sf::Vertex(sf::Vector2f(600, 800))
+        };
 
 #endif //CLOSEST_PAIR_OF_POINTS_LIBRERIAS_H

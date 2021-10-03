@@ -1,7 +1,7 @@
 #ifndef CLOSEST_PAIR_OF_POINTS_SIMULATION_H
 #define CLOSEST_PAIR_OF_POINTS_SIMULATION_H
 
-#include "Librerias.h"
+#include "Point.h"
 
 class Simulation{
 private:
@@ -16,17 +16,19 @@ private:
 public:
     Simulation(std::vector<Point*> points_):points(points_){};
 
-    void draw(sf::RenderWindow* window){
+    void draw(sf::RenderWindow* window, int num){
         window->clear();
+
         for (auto & point : points)
             point->draw(window);
+
         window->draw(line,2,sf::Lines);
         window->display();
     }
 
-    void simulate(sf::RenderWindow* window){
+    void simulate(sf::RenderWindow* window, int num){
         while(true){
-            draw(window);
+            draw(window, num);
 
 
             sf::Event _e;
@@ -37,6 +39,7 @@ public:
             }
         }
     }
+
 };
 
 #endif //CLOSEST_PAIR_OF_POINTS_SIMULATION_H
