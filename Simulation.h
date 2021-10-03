@@ -16,20 +16,32 @@ private:
 public:
     Simulation(std::vector<Point*> points_):points(points_){};
 
-    void draw(sf::RenderWindow* window, int num){
+    void draw(sf::RenderWindow* window, int num, bool alerta){
         window->clear();
 
-        for (auto & point : points)
+        for (auto & point : points){
+            if (!alerta){
+                point->red = 0;
+                point->green = 255;
+            } else{
+                point->red = 255;
+                point->green = 0;
+            }
             point->draw(window);
+        }
 
         window->draw(line,2,sf::Lines);
         window->display();
     }
 
     void simulate(sf::RenderWindow* window, int num){
-        while(true){
-            draw(window, num);
+        sf::Time t = sf::milliseconds(1000);
+        bool alerta = true;
 
+        while(true){
+            sf::sleep(t);
+            alerta = !alerta;
+            draw(window, num, alerta);
 
             sf::Event _e;
             while (window->pollEvent(_e))
