@@ -16,15 +16,8 @@
 #include <bits/stdc++.h>
 
 #include "Point.h"
-#include "Simulation.h"
 
 using namespace std;
 using namespace sf;
-
-sf::Vertex line[2] =
-        {
-                sf::Vertex(sf::Vector2f(600, 0)),
-                sf::Vertex(sf::Vector2f(600, 800))
-        };
 
 #endif //CLOSEST_PAIR_OF_POINTS_LIBRERIAS_H

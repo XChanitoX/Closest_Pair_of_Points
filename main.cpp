@@ -77,8 +77,6 @@ float stripClosest(Point strip[], int size, float d, sf::RenderWindow* window)
 // sorted according to y coordinates
 float closestUtil(Point Px[], Point Py[], int n, sf::RenderWindow* window, std::vector<Point*> P)
 {
-    //sf::Time t = sf::milliseconds(1000);
-    //sf::sleep(t);
     // If there are 2 or 3 points, then use brute force
     if (n <= 3){
         //DRAW
@@ -104,6 +102,7 @@ float closestUtil(Point Px[], Point Py[], int n, sf::RenderWindow* window, std::
         return bruteForce(Px, n);
     }
 
+    /// DIVIDE
     // Find the middle point
     int mid = n/2;
     Point midPoint = Px[mid];
@@ -127,11 +126,6 @@ float closestUtil(Point Px[], Point Py[], int n, sf::RenderWindow* window, std::
     linea->color = sf::Color(255, 0, 0,255);
     linea->position = sf::Vector2f((float) -midPoint.x, 0),sf::Vector2f((float) -midPoint.x, 800);
     window->display();
-
-    //sf::Time t = sf::milliseconds(1000);
-    //sf::sleep(t);
-    //window->clear();
-
 
     sf::Event _d;
     while (window->pollEvent(_d))
@@ -157,6 +151,7 @@ float closestUtil(Point Px[], Point Py[], int n, sf::RenderWindow* window, std::
     // Consider the vertical line passing through the middle point
     // calculate the smallest distance dl on left of middle point and
     // dr on right side
+    /// DIVIDE
     float dl = closestUtil(Px, Pyl, mid, window, P);
     float dr = closestUtil(Px + mid, Pyr, n-mid, window, P);
 
@@ -171,24 +166,6 @@ float closestUtil(Point Px[], Point Py[], int n, sf::RenderWindow* window, std::
         if (abs(Py[i].x - midPoint.x) < d)
             strip[j] = Py[i], j++;
 
-
-    //DRAW
-    /*
-    for (auto & point : strip){
-        point.green = 255;
-        point.red = 0;
-        point.draw(window);
-    }
-    window->display();
-
-    sf::Event _e;
-    while (window->pollEvent(_e))
-    {
-        if (_e.type == sf::Event::Closed)
-            window->close();
-    }*/
-
-
     return stripClosest(strip, j, d, window);
 }
 
@@ -196,14 +173,10 @@ float closestUtil(Point Px[], Point Py[], int n, sf::RenderWindow* window, std::
 // This method mainly uses closestUtil()
 float closest(std::vector<Point*> P, int n, sf::RenderWindow* window)
 {
-    //window->clear();
 
     for (auto & point : P){
         point->draw(window);
     }
-
-    window->draw(line,2,sf::Lines);
-    //window->display();
 
     Point Px[n];
     Point Py[n];
@@ -223,12 +196,12 @@ float closest(std::vector<Point*> P, int n, sf::RenderWindow* window)
     return closestUtil(Px, Py, n, window, P);
 }
 
-// Driver program to test above functions
+
 int main()
 {
     int num;
     cin >> num;
-    //Point points[num];
+
     std::vector<Point*> points;
     srand(time(NULL));
 
@@ -245,11 +218,6 @@ int main()
     window->setFramerateLimit(60);
 
     cout << "The smallest distance is " << closest(points, num, window);
-
-    //auto* window = new RenderWindow (VideoMode(1200,800), "Closest Pair of Points Simulator");
-    //window->setFramerateLimit(60);
-    //Simulation test(points);
-    //test.simulate(window);
 
     return 0;
 }
