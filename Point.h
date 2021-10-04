@@ -5,7 +5,7 @@
 struct Point
 {
     double x, y;
-    double radius = 0.5;
+    double radius = 0.3;
     int red = 255, green = 0, blue = 0;
     sf::CircleShape circle;
 
