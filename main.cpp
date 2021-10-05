@@ -204,15 +204,27 @@ int main()
     int num;
     cin >> num;
 
-    std::vector<Point*> points;
+    vector<Point*> points;
+    unordered_set<double> numerosSinRepetir;
+
+
     srand(time(NULL));
 
-    for(int i = 0; i < num; i++){
+    double posX = -(rand()%1500);
+    numerosSinRepetir.insert(posX);
+    unordered_set<double>::const_iterator found;
 
-        double posX = -(rand()%1500);
+    for(int i = 0; i < num; i++){
+        found = numerosSinRepetir.begin();
+        while(found != numerosSinRepetir.end()){
+            posX = -(rand()%1500);
+            found = numerosSinRepetir.find(posX);
+        }
+        numerosSinRepetir.insert(posX);
+
         double posY = -(rand()%800);
         auto* point = new Point(posX, posY);
-        //points[i] = point;
+
         points.push_back(point);
     }
 

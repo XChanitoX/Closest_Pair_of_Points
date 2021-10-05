@@ -9,6 +9,7 @@
 #include <ctime>
 #include <chrono>
 #include <thread>
+#include <unordered_set>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics/CircleShape.hpp>

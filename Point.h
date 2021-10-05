@@ -16,7 +16,6 @@ struct Point
 
     Point(){};
 
-
     void draw(sf::RenderWindow *window) {
         circle.setRadius(radius*10);
         circle.setFillColor(sf::Color(this->red, this->green, this->blue,255));
