@@ -53,7 +53,6 @@ float stripClosest(Point strip[], int size, float d, sf::RenderWindow* window)
     Point p2;
     // Pick all points one by one and try the next points till the difference
     // between y coordinates is smaller than d.
-    // This is a proven fact that this loop runs at most 6 times
     for (int i = 0; i < size; ++i)
         for (int j = i+1; j < size && (strip[j].y - strip[i].y) < min; ++j)
             if (dist(strip[i],strip[j]) < min){
@@ -65,8 +64,10 @@ float stripClosest(Point strip[], int size, float d, sf::RenderWindow* window)
     //DRAW
     p1.blue = 255;
     p1.red = 0;
+    p1.green = 0;
     p2.blue = 255;
     p2.red = 0;
+    p2.green = 0;
     p1.draw(window);
     p2.draw(window);
 
@@ -91,6 +92,7 @@ float stripClosest(Point strip[], int size, float d, sf::RenderWindow* window)
 float closestUtil(Point Px[], Point Py[], int n, sf::RenderWindow* window, std::vector<Point*> P)
 {
     // If there are 2 or 3 points, then use brute force
+    /// BRUTE FORCE
     if (n <= 3){
         //DRAW
         for (auto & point : P){
@@ -101,6 +103,7 @@ float closestUtil(Point Px[], Point Py[], int n, sf::RenderWindow* window, std::
         for (int i = 0; i < n; ++i) {
             Px[i].green = 255;
             Px[i].red = 0;
+            Px[i].blue = 0;
             Px[i].draw(window);
         }
 
@@ -115,7 +118,7 @@ float closestUtil(Point Px[], Point Py[], int n, sf::RenderWindow* window, std::
         return bruteForce(Px, n);
     }
 
-    /// DIVIDE
+    /// START DIVIDE
     // Find the middle point
     int mid = n/2;
     Point midPoint = Px[mid];
@@ -149,19 +152,25 @@ float closestUtil(Point Px[], Point Py[], int n, sf::RenderWindow* window, std::
         else
             Pyr[ri++] = Py[i];
     }
+    /// END DIVIDE
 
     // Consider the vertical line passing through the middle point
     // calculate the smallest distance dl on left of middle point and
     // dr on right side
-    /// DIVIDE
+
+    /// START CONQUER
+    // Closest pair of points in Pyl
     float dl = closestUtil(Px, Pyl, mid, window, P);
+    // Closest pair of points in Pyr
     float dr = closestUtil(Px + mid, Pyr, n-mid, window, P);
 
     // Find the smaller of two distances
     float d = min(dl, dr);
+    /// END CONQUER
 
     // Build an array strip[] that contains points close (closer than d)
     // to the line passing through the middle point
+    /// COMBINE
     Point strip[n];
     int j = 0;
     for (int i = 0; i < n; i++)
@@ -169,6 +178,7 @@ float closestUtil(Point Px[], Point Py[], int n, sf::RenderWindow* window, std::
             strip[j] = Py[i], j++;
 
     return stripClosest(strip, j, d, window);
+    /// COMBINE
 }
 
 // The main function that finds the smallest distance
