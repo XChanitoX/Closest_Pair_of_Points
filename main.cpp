@@ -1,5 +1,18 @@
 #include "Librerias.h"
 
+// Needed to sort array of points according to X coordinate
+int compareX(const void* a, const void* b)
+{
+    auto *p1 = (Point *)a, *p2 = (Point *)b;
+    return (p1->x != p2->x) ? (p1->x - p2->x) : (p1->y - p2->y);
+}
+// Needed to sort array of points according to Y coordinate
+int compareY(const void* a, const void* b)
+{
+    auto *p1 = (Point *)a, *p2 = (Point *)b;
+    return (p1->y != p2->y) ? (p1->y - p2->y) : (p1->x - p2->x);
+}
+
 // A utility function to find the distance between two points
 float dist(Point p1, Point p2)
 {
@@ -120,17 +133,6 @@ float closestUtil(Point Px[], Point Py[], int n, sf::RenderWindow* window, std::
     while (window->pollEvent(_e))
     {
         if (_e.type == sf::Event::Closed)
-            window->close();
-    }
-
-    linea->color = sf::Color(255, 0, 0,255);
-    linea->position = sf::Vector2f((float) -midPoint.x, 0),sf::Vector2f((float) -midPoint.x, 800);
-    window->display();
-
-    sf::Event _d;
-    while (window->pollEvent(_d))
-    {
-        if (_d.type == sf::Event::Closed)
             window->close();
     }
 

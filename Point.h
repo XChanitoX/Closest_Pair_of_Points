@@ -26,17 +26,5 @@ struct Point
     }
 };
 
-// Needed to sort array of points according to X coordinate
-int compareX(const void* a, const void* b)
-{
-    auto *p1 = (Point *)a, *p2 = (Point *)b;
-    return (p1->x != p2->x) ? (p1->x - p2->x) : (p1->y - p2->y);
-}
-// Needed to sort array of points according to Y coordinate
-int compareY(const void* a, const void* b)
-{
-    auto *p1 = (Point *)a, *p2 = (Point *)b;
-    return (p1->y != p2->y) ? (p1->y - p2->y) : (p1->x - p2->x);
-}
 
 #endif //CLOSEST_PAIR_OF_POINTS_POINT_H
